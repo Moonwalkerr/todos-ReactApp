@@ -3,9 +3,9 @@ import './App.css';
 import TextField from '@material-ui/core/TextField';
 import {useEffect, useState} from 'react';
 import {db} from './firebaseConfig';
-import { Button } from '@material-ui/core';
+import { Button} from '@material-ui/core';
 import firebase from "firebase";
-
+import TodolistItem from "./Todos/todos"
 function App() {
   const [todoInput, setTodoInput] = useState("");
   function addTodo(e){
@@ -63,9 +63,12 @@ function App() {
 
    {/* Mappint listTodos one by one to display on screen */}
    {listTodos.map((todo)=>(
-     <p>{todo.todo}</p>
-   ))
-   }
+ <TodolistItem 
+    todo={todo.todo}
+    isinProgress={todo.is_in_progress}
+    id={todo.id}
+ />
+ ))}
     </div>
   );
 }
