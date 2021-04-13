@@ -1,80 +1,85 @@
-
-import './App.css';
-import TextField from '@material-ui/core/TextField';
-import {useEffect, useState} from 'react';
-import {db} from './firebaseConfig';
-import { Button} from '@material-ui/core';
+import "./App.css";
+import TextField from "@material-ui/core/TextField";
+import { useState, useEffect } from "react";
+import { Button } from "@material-ui/core";
+import { db } from "./firebaseConfig";
 import firebase from "firebase";
-import TodolistItem from "./Todos/todos"
+import TodoListItem from "./Todos/todos";
+
 function App() {
+  const [todos, setTodos] = useState([]);
   const [todoInput, setTodoInput] = useState("");
-  function addTodo(e){
-    e.preventDefault();
-    // app -> firestore
-    db.collection("Todos").add({
-      is_in_progress: true,
-      // get server timestamp from firestore itself
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      todo: todoInput,
-    })
-    // finally setting the todo input to blank for new todo entries from user
-    setTodoInput("");
+
+  useEffect(() => {
+    getTodos();
+  }, []); // blank to run only on first launch
+
+  function getTodos() {
+    db.collection("todos").onSnapshot(function (querySnapshot) {
+      setTodos(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          todo: doc.data().todo,
+          inprogress: doc.data().inprogress,
+        }))
+      );
+    });
   }
 
-  
+  function addTodo(e) {
+    e.preventDefault();
 
-  // we should get todos to be displayed at the start of the application on screen
-    useEffect(() => {
-      getTodos();
-    }, [])
-    // leaving [] blank as we wanna run this for first time only at time of display
-  
-  
-    const [listTodos, setlistTodos] = useState([]);
+    db.collection("todos").add({
+      inprogress: true,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      todo: todoInput,
+    });
 
-    function getTodos(){
-    // using onSnapshot for real time updates 
-    db.collection("Todos").onSnapshot(function (querySnapshot){
-      // mapping querySnapshots one by one into listTodos using map()
-   setlistTodos(   querySnapshot.docs.map((doc)=>({
-    id: doc.id,
-    todo: doc.data().todo,
-    inprogress: doc.data().is_in_progress,
-    timestamp: doc.data().timestamp
-  })));
-    })
+    setTodoInput("");
   }
 
   return (
     <div className="App">
-    <h1>TODO's App 📝</h1>
-   <form>
-   <TextField id="standard-basic" 
-    value={todoInput} 
-    onChange={(input)=>setTodoInput(input.target.value)}
-    label="What's your next goal ?" />
-    <Button
-     type="submit"
-     variant="contained"
-     onClick={addTodo}
-     style={{display:"none"}}
-     >Add</Button>
-   </form> <h2>Things you need to do today 👇🏻</h2>
-
-   {/* Mappint listTodos one by one to display on screen */}
-   <div style={
-     {alignItems:"center",width:"100%",marginLeft:'300px'}}> 
-   {listTodos.map((todo)=>(
- <TodolistItem 
-    todo={todo.todo}
-    inProgress={todo.inProgress}
-    id={todo.id}
- />
- ))}
-   </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+       <h1 className='App-header'>TODO's App 📝</h1>
+        <form>
+          <TextField
+            id="standard-basic"
+            label="Write a Todo"
+            value={todoInput}
+            style={{ width: "90vw", maxWidth: "500px" }}
+            onChange={(e) => setTodoInput(e.target.value)}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            onClick={addTodo}
+            style={{ display: "none" }}
+          >
+            Default
+          </Button>
+        </form>
+        <h2 className='App-subheader'>Things you need to do today 👇🏻</h2>
+        <div className='todoList' >
+          {todos.map((todo) => (
+            <TodoListItem
+              todo={todo.todo}
+              inprogress={todo.inprogress}
+              id={todo.id}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
 export default App;
- 

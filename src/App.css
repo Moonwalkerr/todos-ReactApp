@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Zen+Dots&display=swap');
 .App {
   text-align: center;
 }
@@ -12,27 +16,34 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 8vh;
+font-family: 'Nunito', sans-serif;
+}
+
+
+.App-subheader {
+  font-size: 5vh;
+  font-family: 'Zen Dots', cursive;
 }
 
 .App-link {
   color: #61dafb;
 }
+input{
+  text-align: center;
+}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.todoList{
+  width: 90vw;
+  max-width: 500px;
+  margin-top: 24px;
+
+}
+
+
+
+.list{
+  display:flex;
+  color:green
 }

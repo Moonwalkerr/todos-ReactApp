@@ -1,33 +1,31 @@
+import React from "react";
+import { ListItem, ListItemText, Button } from "@material-ui/core";
+import { db } from "../firebaseConfig";
 
-import React from 'react'
-import { Button, ListItem } from '@material-ui/core'
-import ListItemText from '@material-ui/core/ListItemText';
-import {db} from '../firebaseConfig'
+export default function TodoListItem({ todo, inprogress, id }) {
+  function toggleInProgress() {
+    db.collection("todos").doc(id).update({
+      inprogress: !inprogress,
+    });
+  }
 
+  function deleteTodo() {
+    db.collection("todos").doc(id).delete();
+  }
 
-export default function TodolistItem({todo, inProgress, id}) {
+  return (
+    <div className="list">
+      <ListItem>
+        <ListItemText
+          primary={todo}
+          secondary={inprogress ? "In Progress" : "Completed"}
+        />
+      </ListItem>
 
-    function toggleInProgress(){
-        db.collection("Todos").doc(id).update({
-            // If false => true, if True => false
-            inProgress:!inProgress
-        })
-    }
-    
-    console.log(inProgress);
-    return (
-        <div className='list' style={{display:"flex",
-        maxWidth:'900px',
-        width:'300px'}}>
-    <ListItem>
-       <ListItemText primary={todo}
-       secondary={inProgress?"In Progress":"Completed"}/> 
-    </ListItem>
-    <Button 
-    onClick={toggleInProgress}
-    >{inProgress?"✔️":"UNDONE"}</Button>
-    <Button>❌</Button>
-        </div>
-    );
-    
+      <Button onClick={toggleInProgress}>
+        {inprogress ? "✔️" : "❌"}
+      </Button>
+      <Button onClick={deleteTodo}>❌</Button>
+    </div>
+  );
 }
