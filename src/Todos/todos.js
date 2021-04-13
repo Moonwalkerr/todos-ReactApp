@@ -14,7 +14,7 @@ export default function TodoListItem({ todo, inprogress, id }) {
   }
 
   return (
-    <div className="list">
+    <div style={{ display: "flex" }}>
       <ListItem>
         <ListItemText
           primary={todo}
