@@ -25,15 +25,13 @@ function App() {
 
   // we should get todos to be displayed at the start of the application on screen
     useEffect(() => {
-      effect
-      return () => {
-        cleanup
-      }
+      getTodos();
     }, [])
     // leaving [] blank as we wanna run this for first time only at time of display
   
   
     const [listTodos, setlistTodos] = useState([]);
+
     function getTodos(){
     // using onSnapshot for real time updates 
     db.collection("Todos").onSnapshot(function (querySnapshot){
@@ -62,6 +60,12 @@ function App() {
      style={{display:"none"}}
      >Add</Button>
    </form> <h2>Things you need to do today 👇🏻</h2>
+
+   {/* Mappint listTodos one by one to display on screen */}
+   {listTodos.map((todo)=>(
+     <p>{todo.todo}</p>
+   ))
+   }
     </div>
   );
 }
