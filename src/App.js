@@ -62,13 +62,16 @@ function App() {
    </form> <h2>Things you need to do today 👇🏻</h2>
 
    {/* Mappint listTodos one by one to display on screen */}
+   <div style={
+     {alignItems:"center",width:"100%",marginLeft:'300px'}}> 
    {listTodos.map((todo)=>(
  <TodolistItem 
     todo={todo.todo}
-    isinProgress={todo.is_in_progress}
+    inProgress={todo.inProgress}
     id={todo.id}
  />
  ))}
+   </div>
     </div>
   );
 }
