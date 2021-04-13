@@ -7,11 +7,10 @@ var firebaseConfig = {
     storageBucket: "todoreactapp-c68b6.appspot.com",
     messagingSenderId: "375073367504",
     appId: "1:375073367504:web:d1313558d9046374e7c5d5"
-  };
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-  firebase.initializeApp(firebaseConfig);
-
-  const db = firebase.firestore();
-
-
-  export {db};
+export {
+    db
+};
