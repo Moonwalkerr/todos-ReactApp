@@ -28,13 +28,15 @@ function App() {
 
   function addTodo(e) {
     e.preventDefault();
-
-    db.collection("todos").add({
+    if (todoInput==""){
+      // do nothing
+    }
+   else{ db.collection("todos").add({
       inprogress: true,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       todo: todoInput,
     });
-
+}
     setTodoInput("");
   }
 
