@@ -7,18 +7,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 .App {
   text-align: center;
-  
+  height: 100vh;
+  /* background-color:#333;   */
 }
 
-.App-header {
+#App-header {
   font-size: 10vh;
   font-family: 'Dancing Script', cursive;
   /* font-family: 'Nunito', sans-serif; */
+  color:blue;
 }
 
-.App-subheader {
+#App-subheader {
   font-family: 'Zen Dots', cursive;
   font-size: 4vh;
+  color:black;
+}
+
+#brand{
+  position: absolute;
+  left:4px;
+  top:4px;
+  padding:3px;
+  font-size:13px;
+  border:1px solid goldenrod;
+  color:red;
+  font-family:cursive;
+  box-shadow:2px 1px 2px #333;
+}
+
+#darkMode{
+  float:right;
+  top: 3px;
+  margin-right:10px;
+  box-shadow:2px 2px 2px black;
+  /* background-color:black; */
 }
 
 input{
