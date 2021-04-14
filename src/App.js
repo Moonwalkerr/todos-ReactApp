@@ -28,7 +28,7 @@ function App() {
 
   function addTodo(e) {
     e.preventDefault();
-    if (todoInput==""){
+    if (todoInput===""){
       // do nothing
     }
    else{ db.collection("todos").add({
