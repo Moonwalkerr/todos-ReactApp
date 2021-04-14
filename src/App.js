@@ -6,6 +6,7 @@ import { db } from "./firebaseConfig";
 import firebase from "firebase";
 import TodoListItem from "./Todos/todos";
 
+
 function App() {
   const [todos, setTodos] = useState([]);
   const [todoInput, setTodoInput] = useState("");
@@ -40,8 +41,33 @@ function App() {
     setTodoInput("");
   }
 
+  function setdarkTheme(){
+ if (document.body.style.backgroundColor === ""){
+  document.body.style.backgroundColor = "#333";
+  document.getElementById('App-header').style.color = 'white';
+  document.getElementById('App-subheader').style.color = 'yellow';
+}
+
+else if(document.body.style.backgroundColor === "white") {
+  document.body.style.backgroundColor = "#333";
+  document.getElementById('App-header').style.color = 'white';
+  document.getElementById('App-subheader').style.color = 'yellow';
+}
+
+else{
+  document.body.style.backgroundColor = "white";
+  document.getElementById('App-header').style.color = 'blue'
+  document.getElementById('App-subheader').style.color = 'black';
+}
+  }
   return (
     <div className="App">
+ 
+  <Button
+  onClick={setdarkTheme}
+  id='darkMode'
+  variant="outlined" color="secondary">🌙</Button>
+      <div id='brand'>Made with ❤️ by Abhishek Mishra</div>
       <div
         style={{
           display: "flex",
@@ -51,7 +77,7 @@ function App() {
           width: "100%",
         }}
       >
-       <h1 className='App-header'>TODO's App 📝</h1>
+       <h1 id='App-header'>TODO's App 📝</h1>
         <form>
           <TextField
             id="standard-basic"
@@ -69,7 +95,7 @@ function App() {
             Default
           </Button>
         </form>
-        <h2 className='App-subheader'>Things you need to do today 👇🏻</h2>
+        <h2 id='App-subheader'>Things you need to do today 👇🏻</h2>
         <div className='todoList' >
           {todos.map((todo) => (
             <TodoListItem
